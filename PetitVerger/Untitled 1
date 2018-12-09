@@ -1,0 +1,31 @@
+Le petit verger à rendre pour le 09/12 = à la fin.
+règle du jeu ici : http://www.ludism.fr/regles_files/fr/upload/4460D_3460F_H_verger_(le_petit)_HABA_2004.pdf
+
+Cette application permettra de jouer au petit verger, au moins en mode console, et de stocker en base de données différentes parties en cours.
+Ce qui sera noté sera la propreté et la rigueur de votre code.
+Vous devez anticiper la possibilité d'utiliser votre code dans d'autres jeux => utilisation de types génériques, d'interfaces, de classes abstraites et concrètes, de constantes.
+
+Le jeu consiste à cueillir collectivement 5 cerises avant que le corbeau ne franchisse les cases qui le séparent du cerisier. Pour cela, les joueurs ont devant eux un dé et 3 x 5 cartes fleurs posées faces cachées, comme pour un memory, dans un "champs de fleurs". Le dé propose 5 couleurs de fleurs différentes et une face joker. Le joueur lance le dé puis retourne une carte, dont la couleur est désignée par le dé. Chaque couleur de fleur est associée à trois cartes de trois valeurs : « le corbeau » qui le fait avancer, «la cerise » qui permet d'en  cueillir une et « l'animal endormi » qui ne fait rien. Lorsqu'une carte cerise est retournée, elle reste face visible et ne pourra plus être jouée, les autres cartes sont remises face cachée. Pour gagner, le corbeau doit parcourir 5 cases. Pour que les joueurs gagnent, ils doivent cueillir les 5 cerises.
+
+étape 1, pour le 15/11 :
+Vous devez avoir le jeu complet en mode console, avec un système de sérialisation du jeu.
+Faire une interface Générique IGrille<T extends ICarte> qui propose les méthodes suivantes :
+pick / del / set / move / activate / sleep
+L'interface ICarte propose les méthodes suivantes :
+activate / sleep / toDisplay / isCompatible
+Pour le champs de fleurs, l'activation d'une carte la rend visible, sleep d'une carte la met face cachée.
+
+Pour effectuer la désérialisation, vous devez utiliser StringTokenizer.
+@Override
+	public ICarte deserialise(String chaine) {
+		ICarte rep=null;
+		StringTokenizer st = new StringTokenizer(chaine, SEPARATEUR+"");
+		if (st.countTokens()!=3) {
+			System.err.println("problème nombre de tokens Carte");
+		}		
+		rep = new CarteSpeed(Integer.parseInt(st.nextToken()),
+				Integer.parseInt(st.nextToken()),
+				Integer.parseInt(st.nextToken())
+				);
+		return rep;
+	}
